@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Holy Places Tourism of India</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color:#ac9080;
+            padding-top: 60px;
+        }
+        header {
+    background-color: rgba(74, 73, 71, 0.7);
+    color: white;
+    padding: 5px 10px; 
+    text-align: left;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    font-size: 1.2em;
+}
+        header input[type="text"] {
+            padding: 8px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+            width: 300px;
+            margin-left: 10px; 
+            display: inline-block;
+        }
+
+        .card-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 300px;
+            margin: 10px;
+        }
+
+        .card-img {
+            width: 100%;
+            height: 250px;
+        }
+
+        .card-content {
+            padding: 20px;
+            
+        }
+
+        .card-title {
+            margin: 0 0 10px;
+            font-size: 1.5em;
+        }
+
+        .card-text {
+            margin: 0 0 20px;
+            color: #555;
+        }
+
+        .card-button {
+            background-color:#3e362e;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .card-button:hover {
+            background-color: #865d36;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1 style="text-align: center;">Holy Places Tourism of India</h1>
+        <input type="text" id="search-bar" placeholder="Search destinations....." onkeyup="searchFunction()" />
+    </header>
+    <div> <h2 style="text-align: center; margin-top: 50px; margin-bottom: 0px;">Famous Holy Places of India</h2></div>
+    <div class="card-container">
+        <div class="card">
+            <img src="varanasi image.jpg" alt="Card Image" class="card-img">
+            <div class="card-content">
+                <h2 class="card-title">Varanasi</h2>
+                <p class="card-text">Varanasi is one of the world's oldest continually inhabited cities. Kashi is its ancient name and it is located in the northern Indian state of Uttar Pradesh.</p>
+                <button class="card-button" onclick="window.location.href='varanasi.html'">Explore</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="Ayodhya.webp" alt="Card Image" class="card-img">
+            <div class="card-content">
+                <h2 class="card-title">Ayodhya</h2>
+                <p class="card-text">Ayodhya is a city situated on the banks of the Sarayu river in the Indian state of Uttar Pradesh. It is the Birth Place of lord Rama.</p>
+                <button class="card-button" onclick="window.location.href='ayodhya.html'">Explore</button>
+            </div>
+        </div>
+        <div class="card">
+            <img src="Vrindavan.jpg" alt="Card Image" class="card-img">
+            <div class="card-content">
+                <h2 class="card-title">Vrindavan</h2>
+                <p class="card-text">Vrindavan is a historical city in the Mathura district of Uttar Pradesh.Vrindavan forms a part of the "Krishna pilgrimage circuit" under development by the Indian Ministry of Tourism. The circuit also includes Mathura, Barsana, Gokul, Govardhan, Kurukshetra, Dwarka and Puri.</p>
+                <button class="card-button" onclick="window.location.href='vrindavan.html'">Explore</button>
+            </div>
+        </div>
+        <div class="card">
+            <img src="kedarnath.webp" alt="Card Image" class="card-img">
+            <div class="card-content">
+                <h2 class="card-title">Kedarnath</h2>
+                <p class="card-text">One of the most prominent and revered Hindu temples in Uttarakhand, India, is the Kedarnath Temple, which is situated on the Garhwal Himalayan Range. which is devoted to Lord Shiva and is the highest of the 12 Jyotirlingas.</p>
+                <button class="card-button" onclick="window.location.href='kedarnath.html'">Explore</button>
+            </div>
+        </div>
+        <div class="card">
+            <img src="Amrithsar.jpg" alt="Card Image" class="card-img">
+            <div class="card-content">
+                <h2 class="card-title">Amritsar</h2>
+                <p class="card-text">historically also known as Rāmdāspur and colloquially as Ambarsar,is the second-largest city in the Indian state of Punjab, after Ludhiana. Located in the Majha region, it is a major cultural, transportation and economic centre.</p>
+                <button class="card-button" onclick="Explore('Card Title 3')">Explore</button>
+            </div>
+        </div>
+        <div class="card">
+            <img src="Amarnath.jpg" alt="Card Image" class="card-img">
+            <div class="card-content">
+                <h2 class="card-title">Amarnath</h2>
+                <p class="card-text">Amarnath Temple is a Hindu shrine located in the Pahalgam tehsil of the Anantnag district of Jammu and Kashmir, India. The Amarnath cave, abode of the Mahamaya Shakti Pitha, is one of the 51 Shakti Pithas, Inside the cave there is a shivling of lord shiva </p>
+                <button class="card-button" onclick="Explore('Card Title 3')">Explore</button>
+            </div>
+        </div>
+        <div class="card">
+            <img src="Rishikesh.avif" alt="Card Image" class="card-img">
+            <div class="card-content">
+                <h2 class="card-title">Rishikesh</h2>
+                <p class="card-text">Rishikesh is a city in India’s northern state of Uttarakhand, in the Himalayan foothills beside the Ganges River. The river is considered holy, and the city is renowned as a center for studying yoga and meditation. Temples and ashrams (centers for spiritual studies) line the eastern bank around Swarg Ashram, a traffic-free, alcohol-free and vegetarian enclave upstream from Rishikesh town.</p>
+                <button class="card-button" onclick="Explore('Card Title 3')">Explore</button>
+            </div>
+        </div>
+        <div class="card">
+            <img src="Badrinath.webp" alt="Card Image" class="card-img">
+            <div class="card-content">
+                <h2 class="card-title">Badrinath</h2>
+                <p class="card-text">Badarinath is one of the holy shrines for Vaishnavites among the 108 divya desams incarnation of Lord Vishnu. Badrinath town is also the part of Panch Badri temples including Yog Dhyan Badri, Bhavishya Badri, Adi Badri and Vriddha Badri, along with Badrinath temple..</p>
+                <button class="card-button" onclick="Explore('Card Title 3')">Explore</button>
+            </div>
+        </div>
+        <div class="card">
+            <img src="mathura.jpg" alt="Card Image" class="card-img">
+            <div class="card-content">
+                <h2 class="card-title">Mathura</h2>
+                <p class="card-text">Mathura is a sacred city in Uttar Pradesh, northern India. The deity Lord Krishna is said to have been born on the site of Sri Krishna Janma Bhoomi, a Hindu temple. Dotting the Yamuna River are 25 ghats (flights of steps down to the water), of which Vishram Ghat is considered the holiest. Sati Burj is a 16th-century memorial tower. Dwarkadhish Temple has a carved entrance and a black-marble idol of Lord Krishna. </p>
+                <button class="card-button" onclick="Explore('Card Title 3')">Explore</button>
+            </div>
+        </div>
+        <div class="card">
+            <img src="Rameshwaram.jpg" alt="Card Image" class="card-img">
+            <div class="card-content">
+                <h2 class="card-title">Rameshwaram</h2>
+                <p class="card-text">Rameswaram is a town on Pamban Island, in the southeast Indian state of Tamil Nadu. It's known for Ramanathaswamy Temple, a Hindu pilgrimage site with ornate corridors, huge sculpted pillars and sacred water tanks. Devotees bathe in the waters of Agni Theertham, off the beach east of the temple. Gandamadana Parvatham is a hill with island views. A chakra (wheel) here is said to bear an imprint of Lord Rama's feet.</p>
+                <button class="card-button" onclick="Explore('Card Title 3')">Explore</button>
+            </div>
+        </div>
+        <div class="card">
+            <img src="vaishodevi.jpeg" alt="Card Image" class="card-img">
+            <div class="card-content">
+                <h2 class="card-title">Vaishnodevi</h2>
+                <p class="card-text">Vaishno Devi is a manifestation of the Hindu mother goddess Lakshmi in some beliefs. Vaishno Devi is worshipped as a combined avatar of the goddesses Mahakali, Mahalakshmi, and Mahasarasvati. Additionally, she is seen as the potency of Hari or Vishnu.</p>
+                <button class="card-button" onclick="Explore('Card Title 3')">Explore</button>
+            </div>
+        </div>
+        <div class="card">
+            <img src="Haridwar.JPG" alt="Card Image" class="card-img">
+            <div class="card-content">
+                <h2 class="card-title">Haridwar</h2>
+                <p class="card-text">Haridwar is an ancient city and important Hindu pilgrimage site in North India's Uttarakhand state, where the River Ganges exits the Himalayan foothills. The largest of several sacred ghats (bathing steps), Har Ki Pauri hosts a nightly Ganga Aarti (river-worshipping ceremony) in which tiny flickering lamps are floated off the steps. Worshipers fill the city during major festivals including the annual Kanwar Mela.</p>
+                <button class="card-button" onclick="Explore('Card Title 3')">Explore</button>
+            </div>
+        </div>
+        <div class="card">
+            <img src="Tirupati.avif" alt="Card Image" class="card-img">
+            <div class="card-content">
+                <h2 class="card-title">Tirupati</h2>
+                <p class="card-text">Tirupati is a city in the Indian state of Andhra Pradesh. Its Sri Venkateswara Temple sits atop one of the the 7 peaks of Tirumala Hills, attracting scores of Hindu pilgrims. Sri Venkateswara National Park, home to the temple, also contains the Sri Venkateswara Zoological Park with lions and primates. Nearby, next to a waterfall and cave believed to be sacred, Sri Kapileswara Swamy Temple is dedicated to Lord Shiva</p>
+                <button class="card-button" onclick="Explore('Card Title 3')">Explore</button>
+            </div>
+        </div>
+        <div class="card">
+            <img src="Shirdi.webp" alt="Card Image" class="card-img">
+            <div class="card-content">
+                <h2 class="card-title">Shirdi</h2>
+                <p class="card-text">Shirdi is a town in the state of Maharashtra, in western India. It's known as the former home of revered spiritual leader Sai Baba, and as a major pilgrimage site. Devotees gather daily at the Sai Baba Temple complex to honor his legacy. Here, the Samadhi Mandir shrine has an ornate marble statue of Sai Baba, alongside his tomb. Close by are Dwarkamai, a mosque where Sai Baba once lived, and tree-lined Lendi Garden.</p>
+                <button class="card-button" onclick="Explore('Card Title 3')">Explore</button>
+            </div>
+        </div>
+        <div class="card">
+            <img src="madurai.jpg" alt="Card Image" class="card-img">
+            <div class="card-content">
+                <h2 class="card-title">Madurai</h2>
+                <p class="card-text">Madurai is an energetic, ancient city on the Vaigai River in the South Indian state of Tamil Nadu. Its skyline is dominated by the 14 colorful gopurams (gateway towers) of Meenakshi Amman Temple. Covered in bright carvings of Hindu gods, the Dravidian-style temple is a major pilgrimage site. Millions attend the processions and ceremonies of April's Chithirai Festival celebrating Meenakshi and Lord Vishnu.</p>
+                <button class="card-button" onclick="Explore('Card Title 3')">Explore</button>
+            </div>
+        </div>
+        <div class="card">
+            <img src="Prayagraj.jpg" alt="Card Image" class="card-img">
+            <div class="card-content">
+                <h2 class="card-title">Prayagraj</h2>
+                <p class="card-text">Prayagraj, also known as Allahabad or Ilahabad, is a metropolis in the Indian state of Uttar Pradesh. It is the administrative headquarters of the Prayagraj district, the most populous district in the state and 13th most populous district in India and the Prayagraj division. .</p>
+                <button class="card-button" onclick="Explore('Card Title 3')">Explore</button>
+            </div>
+        </div>
+        <div class="card">
+            <img src="Dwarika.webp" alt="Card Image" class="card-img">
+            <div class="card-content">
+                <h2 class="card-title">Dwarka</h2>
+                <p class="card-text">Dwarka is an ancient city in the northwestern Indian state of Gujarat. It's known as a Hindu pilgrimage site. The ancient Dwarkadhish Temple has an elaborately tiered main shrine, a carved entrance and a black-marble idol of Lord Krishna. Dwarka Beach and nearby Dwarka Lighthouse offer views of the Arabian Sea. Southeast, Gaga Wildlife Sanctuary protects migratory birds and endangered species like the Indian wolf.</p>
+                <button class="card-button" onclick="Explore('Card Title 3')">Explore</button>
+            </div>
+        </div>
+        <div class="card">
+            <img src="Bodh Gaya.jpg" alt="Card Image" class="card-img">
+            <div class="card-content">
+                <h2 class="card-title">Bodh Gaya</h2>
+                <p class="card-text">Bodh Gaya is a village in the northeast Indian state of Bihar. Considered one of the most important Buddhist pilgrimage sites, it's dominated by the ancient brick Mahabodhi Temple Complex, built to mark the site where the Buddha attained enlightenment beneath a sacred Bodhi Tree. A direct descendant of the tree sits within the complex today, along with six other sacred sites, including a lotus pond.</p>
+                <button class="card-button" onclick="Explore('Card Title 3')">Explore</button>
+            </div>
+        </div>
+        
+    </div>
+    <script>
+        function searchFunction() {
+            const input = document.getElementById('search-bar').value.toLowerCase();
+            const cards = document.querySelectorAll('.card');
+
+            cards.forEach(card => {
+                const title = card.querySelector('.card-title').textContent.toLowerCase();
+                if (title.includes(input)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

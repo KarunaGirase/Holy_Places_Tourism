@@ -1,0 +1,561 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Kedarnath</title>
+    <style>
+         * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #ac9080;
+            background: url('kedarnath.webp') no-repeat center center fixed; 
+            background-size: cover;
+            padding-top: 60px; /* Space for fixed header */
+        }
+        nav {
+            background-color: rgba(74, 73, 71, 0.7);
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+            position: fixed; 
+            width: 100%; 
+            top: 0; /* Fixed to the top */
+            z-index: 999; /* Above content */
+            backdrop-filter: blur(30px);
+            box-shadow: 0px 0px 30px rgba(227,228,237,0.37);
+            border: 2px solid rgba(255, 255, 255, 0.18);
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            margin: 0 10px;
+            transition: background 0.3s;
+        }
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .hidden {
+            display: none;
+        }
+        .read-more {
+            color: blue;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        .content {
+            max-width: 1200px;
+            margin: 85px auto 20px; /* Reduced bottom margin */
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .places {
+            max-width: 1200px;
+            margin: 25px auto; /* Center the places section */
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .card-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 cards per row */
+    gap: 20px; /* Space between cards */
+}
+
+.card {
+    perspective: 1000px; /* Add perspective for 3D effect */
+    height: 300px;
+
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 300px; /* Set a fixed height */
+    transition: transform 0.6s;
+    transform-style: preserve-3d; /* Ensure children are in 3D space */
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden; /* Hide the back side when not flipped */
+    border-radius: 5px; /* Optional: Rounding */
+    overflow: hidden; /* Hide overflow */
+}
+
+.card-front {
+    z-index: 2; /* Ensure front is above */
+    background-color: #fff; /* Background color */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.card-back {
+    transform: rotateY(180deg); /* Position back side */
+    background: #3e362e; /* Dark background */
+    color: white;
+    display: flex;
+    flex-direction: column; /* Align content vertically */
+    justify-content: flex-start; /* Start content from the top */
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    overflow-y: auto; /* Enable scroll if content exceeds height */
+}
+
+
+.card:hover .card-inner {
+    transform: rotateY(180deg); /* Flip the card on hover */
+}
+
+.card img {
+    width: 250px;
+    height: 200px;
+    border-radius: 5px; /* Optional: Rounding for images */
+    object-fit: cover
+}
+
+.card-title {
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: bold;
+}
+.hidden {
+    display: none;
+}
+#weather.hidden {
+    display: none;
+}
+#weather {
+    position: absolute; /* Change from fixed */
+    top: 50px; /* Adjust to appear below the weather icon */
+    right: 20px; /* Align near the icon */
+    background: white;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+    z-index: 1000;
+}
+@media (max-width: 768px) {
+    .card-container {
+        grid-template-columns: repeat(2, 1fr); /* 2 cards per row on smaller screens */
+    }
+    .card {
+        height: 250px; /* Adjust for smaller screens */
+    }
+
+    .card-inner {
+        height: 250px;
+    }
+
+    .card img {
+        width: 200px;
+        height: 200px;
+    }
+}
+@media (max-width: 480px) {
+    .card-container {
+        grid-template-columns: 1fr; /* 1 card per row on mobile */
+    }
+    .card {
+        height: 220px; /* Further adjustment for mobile screens */
+    }
+
+    .card-inner {
+        height: 220px;
+    }
+
+    .card img {
+        width: 180px;
+        height: 180px;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="hotelsvrindavan.html">Hotels</a>
+        <a href="https://maps.app.goo.gl/mN6zTdvue74cQnRn7" target="_blank" style="margin-left: auto; color: white; text-decoration: none;">
+         <img src="icons8-location-48.png">
+    </a>
+    <a href="javascript:void(0);" id="weather-icon" onclick="toggleWeather()" style="color: white; text-decoration: none; margin-left: 10px;">
+    <img src="Weather-icon.png" alt="Weather" style="width: 30px; height: 30px;">
+    </a>
+        </nav>   
+        <div id="weather" class="hidden">
+            <p id="description">Weather: --</p>
+            <p id="temperature">Temperature: --</p>
+            <p id="humidity">Humidity: --</p>
+        </div>     
+    <div class="content">
+        <h1>History of Vrindavan</h1>
+        
+        <p>Vrindavan is a historical city in the Mathura district of Uttar Pradesh, India. It is located in the Braj Bhoomi region and holds religious importance for Hindus who believe that Krishna, one of the main Gods in Hinduism, spent most of his childhood in this city. Vrindavan has about 5,500 temples dedicated to the worship of Krishna and his chief consort, Radha.It is one of the most sacred places for Vaishnava traditions.
+        Vrindavan forms a part of the "Krishna pilgrimage circuit" under development by the Indian Ministry of Tourism. The circuit also includes Mathura, Barsana, Gokul, Govardhan, Kurukshetra, Dwarka and Puri
+        <div id="extraText" class="hidden">
+        <p>Vrindavan, deeply rooted in Hindu culture and history, emerged as a significant pilgrimage site in the 16th and 17th centuries through a treaty between Muslim and Hindu rulers. It holds immense spiritual importance, especially in connection with Lord Krishna.
+        allabha Charya, a prominent saint, visited Vrindavan at the age of eleven and later undertook three barefoot pilgrimages across India, delivering Bhagavad Gita discourses at 84 sites, now revered as Pushtimarg Baithaks. He spent four months annually in Vrindavan, shaping the Pushtimarg tradition.
+        The spiritual significance of Vrindavan was revived in 1515 when Chaitanya Mahaprabhu rediscovered the sacred sites linked to Krishna's life.
+        Over the last 250 years, urbanization has drastically reduced Vrindavan's dense forests, threatening its wildlife, including peacocks, cows, and monkeys, and leaving only fragments of its natural beauty.
+        </p>
+        </div>
+        <span id="readMoreBtn" class="read-more" onclick="toggleReadMore()">Read More</span>
+    </div>
+    <div class="places">
+        <h2 style="color:black;">Places to Visit in Vrindavan</h2>
+    
+
+    <div class="card-container">
+        <!-- Card 1 -->
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <img src="prem mandir.jpg" alt="Prem Mandir">
+                    <div class="card-title">Prem Mandir</div>
+                </div>
+                <div class="card-back">
+                    <div>Prem Mandir, Vrindavan is a magnificent temple dedicated to Radha-Krishna and Sita-Ram, symbolizing divine love and devotion. Built by Jagadguru Kripalu Parishat and inaugurated in 2012, it is famous for its intricate marble architecture, life-like carvings, and beautiful gardens.
+                    The temple showcases Krishna's pastimes through sculptures and light shows, offering both spiritual and visual appeal. Located on Chattikara Road, Vrindavan, it is easily accessible from Mathura and Delhi. A visit to Prem Mandir provides a peaceful and divine experience for devotees and tourists alike.
+                    <br><br>
+                    <!-- Location Link -->
+                    <a href="https://maps.app.goo.gl/DLjniTpdJKaWv8W69" target="_blank" style="color: yellow; text-decoration: underline;">
+                        View Location
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <!-- Card 2 -->
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <img src="banke bhihari.jpg".jpg" alt="Banke Bihari Temple">
+                    <div class="card-title">Banke Bihari Temple</div>
+                </div>
+                <div class="card-back">
+                    <div>Banke Bihari Temple, Vrindavan, is dedicated to Banke Bihari, believed to be the combined form of Radha and Krishna. Originally worshipped at Nidhivan, the idol was moved to its present temple, built around 1864.
+                    The idol stands in the Tribhanga posture and was worshipped by Swami Haridas under the name Kunj Bihari, meaning "the one who enjoys in the groves of Vrindavan."
+                    In the temple, Banke Bihari is worshipped as a child, so no early morning aarti or bells are allowed to avoid disturbance. Mangala aarti is performed only on Krishna Janmashtami.
+                    Curtains are drawn every five minutes during darshan to prevent Banke Bihari from following devotees home, as per belief. Sharad Purnima is the only day he holds a flute, and during Shravan, he is placed in a swing.
+                    <br><br>
+                    <!-- Location Link -->
+                        <a href="https://maps.app.goo.gl/PkLyYjdKeNxLPtdW9" target="_blank" style="color: yellow; text-decoration: underline;">
+                            View Location
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <img src="iskon.jpg" alt="Shri Shri Krishna Balaram Mandir (ISKCON)">
+                    <div class="card-title">Shri Shri Krishna Balaram Mandir (ISKCON)</div>
+                </div>
+                <div class="card-back">
+                    <div>Shri Shri Krishna Balaram Mandir (ISKCON), Vrindavan is one of the most famous temples in Vrindavan, dedicated to Lord Krishna and his elder brother Lord Balaram. It was established in 1975 by Srila Prabhupada, the founder of the International Society for Krishna Consciousness (ISKCON), to spread the teachings of Lord Krishna and Bhagavad Gita.The temple creates a spiritually uplifting atmosphere with daily kirtans and bhajans. Major festivals like Janmashtami, Rath Yatra, and Holi are celebrated with great enthusiasm.Special attractions include Govinda’s Restaurant (pure vegetarian food), a Goshala (cow shelter), Bhagavad Gita classes, and a book store. It is a significant spiritual hub for devotees and tourists alike.
+                        <br><br>
+                        <!-- Location Link -->
+                        <a href="https://maps.app.goo.gl/n3gCouX5Aoi9MBPA7" target="_blank" style="color: yellow; text-decoration: underline;">
+                            View Location
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <img src="keshi ghat.jpg" alt="Keshi Ghat">
+                    <div class="card-title">Keshi Ghat</div>
+                </div>
+                <div class="card-back">
+                    <div>Keshi Ghat, Vrindavan is a sacred spot on the Yamuna River, named after the demon Keshi, whom Lord Krishna defeated here. It is a key pilgrimage site, known for its peaceful atmosphere, beautiful views, and historical significance. Devotees visit for rituals, prayers, and reflection, especially during festivals like Janmashtami. The ghat features temples and is a serene place for meditation and worship. It's easily accessible by foot, rickshaw, or taxi from central Vrindavan.
+                        <br><br>
+                        <!-- Location Link -->
+                        <a href="https://maps.app.goo.gl/eBWpHAqkHgpfPEfe6" target="_blank" style="color: yellow; text-decoration: underline;">
+                            View Location
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <img src="Shri Radha Madan Mohan Temple.jpg" alt="Shri Radha Madan Mohan Temple">
+                    <div class="card-title">Shri Radha Madan Mohan Temple</div>
+                </div>
+                <div class="card-back">
+                    <div>Shri Radha Madan Mohan Temple is situated in Vrindavan of Indian state of Uttar Pradesh.It is one of the oldest and highly revered temple of Vrindavan. The presiding deity of the temple is Madan Mohan, a form of the god Krishna who is present in the central altar of the temple with his consort goddess Radha and Lalita gopi on either sides of him.The temple is one of the earliest temples of Vrindavan which has architectural influences from existing Mughal architecture and as well as Kalinga Nagara Style of Indian Temple Architecture The temple is built in the Nagara style of architecture. On the bank of Yamuna River, Radha Madan Mohan Temple stands at a height of 50 feet near Kaliya Ghat. It is also one of the most popular Goswami shrines in Uttar Pradesh
+                        <br><br>
+                        <!-- Location Link -->
+                        <a href="https://maps.app.goo.gl/pwufF9TuueAseFgH6" target="_blank" style="color: yellow; text-decoration: underline;">
+                            View Location
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Card 6 -->
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <img src="shri radha damodar temple.jpg" alt="Shri Radha Damodar Temple">
+                    <div class="card-title">Shri Radha Damodar Temple</div>
+                </div>
+                <div class="card-back">
+                    <div>Shri Radha Damodar Temple in Vrindavan, Uttar Pradesh, is dedicated to Radha and Krishna, worshiping Krishna as Damodar with his consort Radha. Founded by Jiva Goswami in 1542 CE, it is one of the seven main Goswami temples of Vrindavan. The temple belongs to the Gaudiya Vaishnavism tradition. It houses the Giriraj Shila, believed to bear Krishna's footprints, and is associated with the belief that four circumambulations of the temple equal one around Govardhana Hill. The temple also contains the samadhis of saints like Rupa Goswami, Jiva Goswami, and Krishnadasa Kaviraja. Srila Prabhupada, founder of ISKCON, stayed here for six years before his journey to the USA.
+                        <br><br>
+                        <!-- Location Link -->
+                        <a href="https://maps.app.goo.gl/myXvpdvcGsMq6mcY9" target="_blank" style="color: yellow; text-decoration: underline;">
+                            View Location
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 7 -->
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <img src="gopeshwar mahadev.jpg" alt="Gopeshwar Mahadev Mandir">
+                    <div class="card-title">Gopeshwar Mahadev Mandir</div>
+                </div>
+                <div class="card-back">
+                    <div>Gopeshwar Mahadev Mandir in Vrindavan is dedicated to Lord Shiva as Gopeshwar Mahadev. It is believed that Lord Shiva came here to witness Lord Krishna's pastimes. The temple is an important pilgrimage site for devotees, offering prayers and seeking blessings. It is located near Radha Vallabh Mandir.
+                    According to legend, Lord Shiva, desiring to participate in Krishna's leelas (divine pastimes), took the form of Gopeshwar Mahadev and settled in Vrindavan. He is believed to have worshipped Lord Krishna here and was later granted the privilege of being a part of Krishna's circle of devotees.
+                        <br><br>
+                        <!-- Location Link -->
+                        <a href="https://maps.app.goo.gl/w6Eofm6Xkd5JtBgT7" target="_blank" style="color: yellow; text-decoration: underline;">
+                            View Location
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 8 -->
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <img src="Shahji Temple.jpg" alt="Shahji Temple">
+                    <div class="card-title">Shahji Temple</div>
+                </div>
+                <div class="card-back">
+                    <div>Shahji Temple in Vrindavan is a prominent and beautiful temple dedicated to Radha and Krishna. It was built in the 17th century by Shah Kundan Lal, a wealthy merchant and devotee of Lord Krishna. The temple is known for its unique architecture, featuring intricate carvings and stunning frescoes.
+                    The main deity of the temple is Radha Krishna, and the temple is particularly famous for its Radha-Vallabh form of Krishna, who is worshipped alongside Radha in a divine and loving form.
+                        <br><br>
+                        <!-- Location Link -->
+                        <a href="https://maps.app.goo.gl/8Df22c8oo46e6B5f6" target="_blank" style="color: yellow; text-decoration: underline;">
+                            View Location
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 9 -->
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <img src="radha vallabh.jpg" alt="Shri Radha Vallabh Mandir">
+                    <div class="card-title">Shri Radha Vallabh Mandir</div>
+                </div>
+                <div class="card-back">
+                    <div>Shri Radha Vallabh Mandir in Vrindavan is a prominent temple dedicated to Radha and Krishna. It is renowned for its unique worship of Radha Vallabh, a form of Krishna, where Radha is revered as the supreme goddess. The temple was established by Shri Radha Vallabh Ji Maharaj in the 16th century and follows the Radha Vallabh Sampradaya tradition.
+                        <br><br>
+                        <!-- Location Link -->
+                        <a href="https://maps.app.goo.gl/fDhBLrBdXnCTPx327" target="_blank" style="color: yellow; text-decoration: underline;">
+                            View Location
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 10 -->
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <img src="vaishodevi1.jpg" alt="Maa Vaishno Devi Dham">
+                    <div class="card-title">Maa Vaishno Devi Dham</div>
+                </div>
+                <div class="card-back">
+                    <div>The Maa Vaishno Devi Dham in Vrindavan is a temple dedicated to Maa Vaishno Devi, one of the most revered deities in Hinduism. The temple is situated in Vrindavan, which is known for its association with Lord Krishna. While Vaishno Devi's main temple is in Katra, Jammu & Kashmir, there are several temples dedicated to her in various parts of India, including one in Vrindavan.
+                    This temple in Vrindavan is a place of spiritual significance, offering devotees a peaceful environment to meditate, offer prayers, and seek blessings from Maa Vaishno Devi. The atmosphere is often serene, reflecting Vrindavan's devotional vibe and its connection to Hindu mythology.
+                    If you're referring to a specific temple or location within Vrindavan related to Maa Vaishno Devi, it might be a relatively recent or smaller shrine, given that Vrindavan is more commonly associated with Lord Krishna and Radha.
+                        <br><br>
+                        <!-- Location Link -->
+                        <a href="https://maps.app.goo.gl/goNuBxzYTBqkBGWm8" target="_blank" style="color: yellow; text-decoration: underline;">
+                            View Location
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 11 -->
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <img src="govind dev ji.jpg" alt="Govind Dev Ji Mandir">
+                    <div class="card-title">Govind Dev Ji Mandir</div>
+                </div>
+                <div class="card-back">
+                    <div>Govind Dev Ji Mandir in Vrindavan, built in 1590 by Raja Man Singh, is dedicated to Lord Krishna in his Govind Dev form. The temple features a unique blend of Mughal and Hindu architecture, with intricate carvings and a grand dome. The self-manifested idol of Krishna is the temple's main attraction. It is one of the most significant temples in Vrindavan, especially during festivals like Janmashtami and Radhashtami. The temple is known for daily kirtans, bhajans, and pujas, and is historically important in the Gaudiya Vaishnavism tradition. It was also linked to Srila Prabhupada of ISKCON.
+                        <br><br>
+                        <!-- Location Link -->
+                        <a href="https://maps.app.goo.gl/4LRye9EC4HF5wgsn9" target="_blank" style="color: yellow; text-decoration: underline;">
+                            View Location
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <img src="katyayani.jpg" alt="Katyayani Temple">
+                    <div class="card-title">Katyayani Temple</div>
+                </div>
+                <div class="card-back">
+                    <div>Katyayani Temple in Vrindavan is a revered Hindu temple dedicated to Goddess Katyayani, one of the nine forms of Durga worshipped during Navaratri. According to Hindu mythology, Goddess Katyayani is believed to have appeared here to bless Lord Krishna and help him defeat the demon Kansa.
+                        <br><br>
+                        <!-- Location Link -->
+                        <a href="https://maps.app.goo.gl/uyf9GGQzQGr2BZsg6" target="_blank" style="color: yellow; text-decoration: underline;">
+                            View Location
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <img src="rangaji temple.jpg" alt="The Rangaji Temple">
+                    <div class="card-title">The Rangaji Temple</div>
+                </div>
+                <div class="card-back">
+                    <div>The Rangaji Temple in Vrindavan is dedicated to Lord Ranganatha, a form of Lord Vishnu. Built in 1851, it blends South Indian and North Indian architectural styles. The temple features a reclining deity of Lord Vishnu and is known for its grand Rath Yatra (chariot festival). It is a key pilgrimage site for Vaishnavites.
+                        <br><br>
+                        <!-- Location Link -->
+                        <a href="https://maps.app.goo.gl/7sKrbfEcCvW7Vuzi6" target="_blank" style="color: yellow; text-decoration: underline;">
+                            View Location
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <img src="nidhivan.jpg" alt="Nidhivan">
+                    <div class="card-title">Nidhivan</div>
+                </div>
+                <div class="card-back">
+                    <div>Nidhivan is a sacred forest area in Vrindavan, believed to be the place where Lord Krishna and Radha performed their divine pastimes. It is considered highly spiritual and is associated with many mystical stories. Devotees believe that the forest remains active at night with Krishna and his devotees continuing their divine activities. It is forbidden for anyone to stay in Nidhivan after sunset. The area is also known for its beautiful trees and the unique "Tulsi plants" that are said to change form at night.
+                        <br><br>
+                        <!-- Location Link -->
+                        <a href="https://maps.app.goo.gl/vA1qFDSwTzUbmWW1A" target="_blank" style="color: yellow; text-decoration: underline;">
+                            View Location
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Card 12 -->
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <img src="radha raman.jpg" alt="Radha Raman Temple">
+                    <div class="card-title">Radha Raman Temple</div>
+                </div>
+                <div class="card-back">
+                    <div>Radha Raman Temple in Vrindavan is one of the most revered temples dedicated to Radha and Krishna, particularly the Radha Raman form of Lord Krishna. It was established by Goswami Gopala Bhatta in the 16th century and is known for its deep spiritual significance and historical importance in the Gaudiya Vaishnavism tradition.
+                        <br><br>
+                        <!-- Location Link -->
+                        <a href="https://maps.app.goo.gl/2csa8PmAXFQEGZJXA" target="_blank" style="color: yellow; text-decoration: underline;">
+                            View Location
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script>
+        function toggleReadMore() {
+            const extraText = document.getElementById('extraText');
+            const readMoreBtn = document.getElementById('readMoreBtn');
+            if (extraText.classList.contains('hidden')) {
+                extraText.classList.remove('hidden');
+                readMoreBtn.textContent = 'Read Less';
+            } else {
+                extraText.classList.add('hidden');
+                readMoreBtn.textContent = 'Read More';
+            }
+        }
+        function toggleWeather() {
+    const weatherContainer = document.getElementById('weather');
+    if (weatherContainer.classList.contains('hidden')) {
+        weatherContainer.classList.remove('hidden');
+        getWeather(); // Fetch weather data when shown
+    } else {
+        weatherContainer.classList.add('hidden');
+    }
+}
+
+function getWeather() {
+    const apiKey = '14c67bc26d0de9b65b08629ef11f3571'; // Replace with your actual API key
+    const city = 'vrindavan';
+    const units = 'metric'; // Celsius
+    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${units}&appid=${apiKey}`;
+
+    fetch(apiUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            const description = data.weather[0].description;
+            const temperature = data.main.temp;
+            const humidity = data.main.humidity;
+
+            document.getElementById('description').textContent = `Weather: ${description}`;
+            document.getElementById('temperature').textContent = `Temperature: ${temperature}°C`;
+            document.getElementById('humidity').textContent = `Humidity: ${humidity}%`;
+        })
+        .catch(error => {
+            console.error('Error fetching weather data:', error);
+            document.getElementById('weather').innerHTML = '<p>Error fetching weather data</p>';
+        });
+}
+
+    </script>
+</body>
+</html>

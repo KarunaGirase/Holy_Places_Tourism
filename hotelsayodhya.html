@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recommended Hotels in Ayodhya</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color:#d8bda2;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #333;
+        }
+        .hotel {
+            display: flex;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        .hotel img {
+            width: 200px; /* Fixed width for images */
+            height: 150px; /* Fixed height for images */
+            object-fit: cover; /* Maintain aspect ratio */
+        }
+        .hotel-info {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .hotel-info h2 {
+            margin: 0 0 10px;
+            font-size: 20px;
+            color: #2c3e50;
+        }
+        .hotel-info p {
+            margin: 0;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <header style="position: fixed; top: 0; left: 0; right: 0; background-color:  rgba(74, 73, 71, 0.7); color: white; padding: 15px; text-align: center; z-index: 1000;">
+    <h1 style="margin: 0; font-size: 28px;">Recommended Hotels in Ayodhya</h1>
+</header>
+
+    </header>    
+    <div class="hotel">
+        <img src="park inn.jpg" alt="Taj ganga">
+        <div class="hotel-info">
+            <h2>Park Inn by Radisson Ayodhya</h2>
+            <p>Plot No 4108, Fatehganj Road, Civil Lines, Lajpat Nagar, Faizabad, Ayodhya, Uttar Pradesh - 224001. </p>
+            <div class="rating">
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="hotel">
+        <img src="hotel divine ayodya.jpg" alt="amada Plaza">
+        <div class="hotel-info">
+            <h2>Hotel Divine Ayodhya</h2>
+            <p>467, Magalsi, Jaganpur, Ayodhya, 221488 Ayodhya, India</p>
+            <div class="rating">
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">☆</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="hotel">
+        <img src="ramayana.jpg" alt="Cozy Inn">
+        <div class="hotel-info">
+            <h2>Premium Ramayan Best Selling Hotel In Ayodhaya</h2>
+            <p>Offering top-notch service and an exquisite dining experience.</p>
+            <div class="rating">
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">☆</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="hotel">
+        <img src="Surya Kaiser.webp" alt="Hotel Surya Kaiser Palace">
+        <div class="hotel-info">
+            <h2>Surya Kaiser</h2>
+            <p>Combining tradition and luxury, with a view of the ghats.</p>
+            <div class="rating">
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">☆</span>
+            </div>
+        </div>
+    </div>
+    <div class="hotel">
+        <img src="narayana.jpg" alt="Cozy Inn">
+        <div class="hotel-info">
+            <h2>Natraj Homes</h2>
+            <p>Situated in Ayodhya, 10 km from Faizabad Railway Station, Natraj Homes - Hotel Natraj features accommodation with a garden, free private parking and a terrace.</p>
+            <div class="rating">
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">☆</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="modal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div class="modal-content" id="modal-content">
+            <!-- Images will be inserted here via JavaScript -->
+        </div>
+    </div>
+
+    <script>
+        function openModal(hotel) {
+            const modalContent = document.getElementById("modal-content");
+            modalContent.innerHTML = ""; // Clear previous images
+
+            const images = {
+                'taj_ganga': ['taj_ganga_1.jpg', 'taj_ganga_2.jpg', 'taj_ganga_3.jpg', 'taj_ganga_4.jpg', 'taj_ganga_5.jpg'],
+                'ramada_plaza': ['ramada_1.jpg', 'ramada_2.jpg', 'ramada_3.jpg'],
+                'cozy_inn': ['cozy_1.jpg', 'cozy_2.jpg', 'cozy_3.jpg'],
+                'surya_kaiser': ['surya_1.jpg', 'surya_2.jpg', 'surya_3.jpg'],
+                'hindusthan': ['hindusthan_1.jpg', 'hindusthan_2.jpg', 'hindusthan_3.jpg']
+            };
+
+            images[hotel].forEach(img => {
+                const imageElement = document.createElement("img");
+                imageElement.src = img;
+                imageElement.alt = img;
+                modalContent.appendChild(imageElement);
+            });
+
+            document.getElementById("modal").style.display = "block"; // Show modal
+        }
+
+        function closeModal() {
+            document.getElementById("modal").style.display = "none"; // Hide modal
+        }
+
+        // Close modal if user clicks outside of the modal content
+        window.onclick = function(event) {
+            const modal = document.getElementById("modal");
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>

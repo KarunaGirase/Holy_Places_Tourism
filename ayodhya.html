@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Ayodhya</title>
+    <style>
+ * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #ac9080;
+            background: url('varanasi bg.webp') no-repeat center center fixed; 
+            background-size: cover;
+            padding-top: 60px; /* Space for fixed header */
+        }
+        nav {
+            background-color: rgba(74, 73, 71, 0.7);
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+            position: fixed; 
+            width: 100%; 
+            top: 0; /* Fixed to the top */
+            z-index: 999; /* Above content */
+            backdrop-filter: blur(30px);
+            box-shadow: 0px 0px 30px rgba(227,228,237,0.37);
+            border: 2px solid rgba(255, 255, 255, 0.18);
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            margin: 0 10px;
+            transition: background 0.3s;
+        }
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .hidden {
+            display: none;
+        }
+        .read-more {
+            color: blue;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        .content {
+            max-width: 1200px;
+            margin: 85px auto 20px; /* Reduced bottom margin */
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .places {
+            max-width: 1200px;
+            margin: 25px auto; /* Center the places section */
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .card-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 cards per row */
+    gap: 20px; /* Space between cards */
+}
+
+.card {
+    perspective: 1000px; /* Add perspective for 3D effect */
+    height: 300px;
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 300px; /* Set a fixed height */
+    transition: transform 0.6s;
+    transform-style: preserve-3d; /* Ensure children are in 3D space */
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden; /* Hide the back side when not flipped */
+    border-radius: 5px; /* Optional: Rounding */
+    overflow: hidden; /* Hide overflow */
+}
+
+.card-front {
+    z-index: 2; /* Ensure front is above */
+    background-color: #fff; /* Background color */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.card-back {
+    transform: rotateY(180deg); /* Position back side */
+    background:#3e362e; /* Dark background */
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.card:hover .card-inner {
+    transform: rotateY(180deg); /* Flip the card on hover */
+}
+
+.card img {
+    width: 250px;
+    height: 200px;
+    border-radius: 5px; /* Optional: Rounding for images */
+    object-fit: cover
+}
+
+.card-title {
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: bold;
+}
+.hidden {
+    display: none;
+}
+#weather.hidden {
+    display: none;
+}
+#weather {
+    position: absolute; /* Change from fixed */
+    top: 50px; /* Adjust to appear below the weather icon */
+    right: 20px; /* Align near the icon */
+    background: white;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+    z-index: 1000;
+}
+@media (max-width: 768px) {
+    .card-container {
+        grid-template-columns: repeat(2, 1fr); /* 2 cards per row on smaller screens */
+    }
+    .card {
+        height: 250px; /* Adjust for smaller screens */
+    }
+
+    .card-inner {
+        height: 250px;
+    }
+
+    .card img {
+        width: 200px;
+        height: 200px;
+    }
+}
+@media (max-width: 480px) {
+    .card-container {
+        grid-template-columns: 1fr; /* 1 card per row on mobile */
+    }
+    .card {
+        height: 220px; /* Further adjustment for mobile screens */
+    }
+
+    .card-inner {
+        height: 220px;
+    }
+
+    .card img {
+        width: 180px;
+        height: 180px;
+    }
+}
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="hotelsayodhya.html">Hotels</a>
+        <a href="https://www.google.com/maps/place/ayodya,+Uttar+Pradesh" target="_blank" style="margin-left: auto; color: white; text-decoration: none;">
+         <img src="icons8-location-48.png">
+    </a>
+    <a href="javascript:void(0);" id="weather-icon" onclick="toggleWeather()" style="color: white; text-decoration: none; margin-left: 10px;">
+    <img src="Weather-icon.png" alt="Weather" style="width: 30px; height: 30px;">
+    </a>
+        </nav>   
+        <div id="weather" class="hidden">
+            <p id="description">Weather: --</p>
+            <p id="temperature">Temperature: --</p>
+            <p id="humidity">Humidity: --</p>
+        </div>     
+        <div class="content">
+            <h1>History of Ayodhya</h1>
+            <h2 style="color:black;">Mythology</h2>
+            <p>Ayodhya, located in Uttar Pradesh, India, is one of the oldest cities with significant historical and spiritual importance. It is revered as the birthplace of Lord Rama, the seventh incarnation of Vishnu in Hindu mythology. Mentioned in ancient texts like the Ramayana and Atharva Veda, Ayodhya was historically known as Kosaldesa and served as the capital of the Kosala kingdom. 
+    
+                The city flourished during the Mauryan and Gupta dynasties and later became an important hub for Buddhism and Jainism. Emperor Ashoka is said to have built Buddhist stupas here. Jain scriptures also reference Ayodhya as the birthplace of several Tirthankaras.</p>
+            <div id="extraText" class="hidden">
+               <p>In medieval times, Ayodhya witnessed the rise of Hinduism under the rule of the Gahadavalas but later saw political and cultural shifts during Mughal rule. The Babri Masjid was constructed in the 16th century, which became a point of contention in later centuries.
+                In modern history, Ayodhya gained global attention due to the Ram Janmabhoomi dispute over the site believed to be Lord Rama's birthplace. This culminated in the 2019 Supreme Court verdict, paving the way for the construction of the Ram Mandir, further cementing Ayodhya's status as a vital religious and cultural landmark in India.</p>
+            </div>
+        <span id="readMoreBtn" class="read-more" onclick="toggleReadMore()">Read More</span>
+    </div>
+    <div class="places">
+        <h2 style="color:black;">Places to Visit in Ayodhya</h2>
+        <div class="card-container">
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <img src="ayodhya background.avif" alt="Ram Mandir">
+                        <div class="card-title">Ram Mandir</div>
+                    </div>
+                    <div class="card-back">
+                        <div>This temple i the big attraction of ayodhya. The Ram Mandir is a Hindu temple that is being built in Ayodhya, Uttar Pradesh, India, at the site of Ram Janmabhoomi. The Ram Mandir is a partially constructed Hindu temple complex Many Hindus, the mythical birthplace of Rama,a principal deity of Hinduism. The temple was inaugurated on 22 January 2024 after a prana pratishtha (consecration) ceremony.
+                            <br><br>
+                            <!-- Location Link -->
+                            <a href="https://maps.app.goo.gl/iJKVAgDGffPG77Xs9" target="_blank" style="color: yellow; text-decoration: underline;">
+                                View Location
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <img src="dasharath bhawan.jpg" alt="Dasharath bhawan">
+                        <div class="card-title">Dasharath bhawan</div>
+                    </div>
+                    <div class="card-back">
+                        <div>Located in the heart of the city, in Ramkot Ayodhya, in Faizabad; Dashrath Bhavan is the original residence of King Dashrath- the ruler of Ayodhya and father to Lord Sri Ram. Popularly known as Bada Asthan or Badi Jagah, Dashrath Mahal houses magnificent shrines of King Ram.
+
+                            Believed to have housed Lord Rama's childhood and King Dasharath's capital, this pretty palace hosts a decorated and ornamented entrance with beautiful paintings. Within the palace, there are saffron-clad monks chanting mantras, singing and dancing.
+                            
+                            Although relatively smaller than the superlative of a palace, the Dashrath Bhavan is a definite magnet during festivities such as Ram Vivah, Karthik Mela, Diwali, Ram Navami and Shravan Mela.
+                            <br><br>
+                <!-- Location Link -->
+                <a href="https://maps.app.goo.gl/MLNU8YCTCqLf9iwT8" target="_blank" style="color: yellow; text-decoration: underline;">
+                    View Location
+                </a>
+                        </div>
+                    </div>.
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <img src="Ram_ki_Paidi.avif" alt=" Ram ki Paidi">
+                        <div class="card-title">Ram ki Paidi</div>
+                    </div>
+                    <div class="card-back">
+                        <div>Ram ki Paidi in Ayodhya is a series of sacred ghats along the Sarayu River, known for its stunning architecture, religious significance, and mesmerizing evening aarti ceremonies.Ram ki Paidi is a series of ghats on the bank of the Saryu river in Ayodhya, India. A large number of pilgrims visit daily to take a bath in the holy waters.
+
+                         There were enormous bathing ghats throughout the banks of the Sarayu, and the ones at Nayaghat were immersed in heavy rain and floods. These were rebuilt in 1985.
+                            
+                        On Deepawali in October 2019 Ayodhya created a Guinness world record by lighting 450,000 lamps at the Ram ki Paidi.
+                            <br><br>
+                            <!-- Location Link -->
+                            <a href="https://maps.app.goo.gl/PHowVq8KEeZN6Po6A" target="_blank" style="color:yellow; text-decoration: underline;">
+                                View Location
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <img src="nageshwarnath.jpg" alt=" Nageshwarnath Temple">
+                        <div class="card-title">Nageshwarnath Temple</div>
+                    </div>
+                    <div class="card-back">
+                        <div>The presiding deity of Ayodhya is Lord Nageshwarnathji. It is believed that Lord Ram’s son, Kush, built the beautiful temple dedicated to him. The Shivalinga ensconced here is said to be quite ancient.
+
+                            As per folklore, Kush was taking a bath in the Saryu River when his armlet fell into the water. After some time, a nag kanya (snake woman) appeared and returned it to him. They fell in love with each other and Kush got the temple structured for her.
+                            
+                            Being one of the most important and venerated temples in Ayodhya, it attracts large crowds of devotees from all over during the festival of Mahashivaratri. The present edifice of the temple was constructed in 1750 AD.
+                            <br><br>
+                            <!-- Location Link -->
+                            <a href="https://maps.app.goo.gl/E62hLSseQmbsAWAH8" target="_blank" style="color:yellow; text-decoration: underline;">
+                                View Location
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <img src="hanuman ghari.jpg" alt="Hanuman Garhi">
+                        <div class="card-title">Hanuman Garhi</div>
+                    </div>
+                    <div class="card-back">
+                        <div>Hanuman Garhi in Ayodhya is a revered temple dedicated to Lord Hanuman, known for its fort-like structure and stunning views, symbolizing Hanuman's eternal devotion to Lord Rama. it is one of the most important temples in the city along with other temples such as Ram Mandir and Nageshwar Nath.This shrine is under the charge of Bairagi Mahants of Ramanandi Sampradaya and Nirvani Akhara.
+                            <br><br>
+                            <!-- Location Link -->
+                            <a href="https://maps.app.goo.gl/DwT1kWs8xV5PpLJG6" target="_blank" style="color: yellow; text-decoration: underline;">
+                                View Location
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <img src="kanak.avif" alt="Kanak Bhawan">
+                        <div class="card-title">Kanak Bhawan</div>
+                    </div>
+                    <div class="card-back">
+                        <div>Kanak Bhawan ('Golden Palace') is a temple in Ram Janmabhoomi, Ayodhya, which is in the north-east of Ramkot.It is one of the most famous temples of Ayodhya.It is believed that this palace (temple) was gifted by Kaikeyi, immediately after the marriage of Rama with Sita and hence, it is their personal palace. According to the mythology, after the original Kanak Bhawan was damaged, it was rebuilt by Krishna himself in the Dvapar Yuga. It is believed that it was renovated by Vikramaditya in the medieval period. Later, it was renovated by Queen Vrishabhanu Kunwari which is still present today. The main idols installed in the sanctum sanctorum are of Rama and Sita.
+                            <br><br>
+                            <!-- Location Link -->
+                            <a href="https://maps.app.goo.gl/q6AAzKzjdj6M7sJQA" target="_blank" style="color:yellow; text-decoration: underline;">
+                                View Location
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <img src="guptar ghat.jpg" alt="Guptar Ghat">
+                        <div class="card-title">Guptar Ghat</div>
+                    </div>
+                    <div class="card-back">
+                        <div>Guptar Ghat Bhawan in Ayodhya is renowned for its spiritual significance, offering a peaceful setting for devotees. It is associated with Lord Rama and is a revered site for rituals.This place is said to be the place where the Hindu deity Lord Ram meditated and undertook the ‘Jal Samadhi’ in the river. After which, he attained ‘Baikuntha’ and descended into heaven as an avatar of Lord Vishnu.
+                        Among the several temples situated here, the Sita- Ram temple, Chakrahari shrine and the Narsingh temple are popular. Revamped in the 1800s and constantly improvised by the UP Government, the Guptar Ghat is currently equipped with modern amenities as well.
+                            <br><br>
+                            <!-- Location Link -->
+                            <a href="https://maps.app.goo.gl/5BnBZJdAqk7FaWUZ9" target="_blank" style="color:yellow; text-decoration: underline;">
+                                View Location
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>        
+    <script>
+        function toggleReadMore() {
+            const extraText = document.getElementById('extraText');
+            const readMoreBtn = document.getElementById('readMoreBtn');
+            if (extraText.classList.contains('hidden')) {
+                extraText.classList.remove('hidden');
+                readMoreBtn.textContent = 'Read Less';
+            } else {
+                extraText.classList.add('hidden');
+                readMoreBtn.textContent = 'Read More';
+            }
+        }
+        function toggleWeather() {
+    const weatherContainer = document.getElementById('weather');
+    if (weatherContainer.classList.contains('hidden')) {
+        weatherContainer.classList.remove('hidden');
+        getWeather(); // Fetch weather data when shown
+    } else {
+        weatherContainer.classList.add('hidden');
+    }
+}
+
+function getWeather() {
+    const apiKey = '14c67bc26d0de9b65b08629ef11f3571'; // Replace with your actual API key
+    const city = 'Ayodhya';
+    const units = 'metric'; // Celsius
+    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${units}&appid=${apiKey}`;
+
+    fetch(apiUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            const description = data.weather[0].description;
+            const temperature = data.main.temp;
+            const humidity = data.main.humidity;
+
+            document.getElementById('description').textContent = `Weather: ${description}`;
+            document.getElementById('temperature').textContent = `Temperature: ${temperature}°C`;
+            document.getElementById('humidity').textContent = `Humidity: ${humidity}%`;
+        })
+        .catch(error => {
+            console.error('Error fetching weather data:', error);
+            document.getElementById('weather').innerHTML = '<p>Error fetching weather data</p>';
+        });
+}
+
+    </script>
+</body>
+</html>

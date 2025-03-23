@@ -1,0 +1,515 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Varanasi</title>
+    <style>
+         * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #ac9080;
+            background: url('varanasi bg.webp') no-repeat center center fixed; 
+            background-size: cover;
+            padding-top: 60px; /* Space for fixed header */
+        }
+        nav {
+            background-color: rgba(74, 73, 71, 0.7);
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+            position: fixed; 
+            width: 100%; 
+            top: 0; /* Fixed to the top */
+            z-index: 999; /* Above content */
+            backdrop-filter: blur(30px);
+            box-shadow: 0px 0px 30px rgba(227,228,237,0.37);
+            border: 2px solid rgba(255, 255, 255, 0.18);
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            margin: 0 10px;
+            transition: background 0.3s;
+        }
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .hidden {
+            display: none;
+        }
+        .read-more {
+            color: blue;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        .content {
+            max-width: 1200px;
+            margin: 85px auto 20px; /* Reduced bottom margin */
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .places {
+            max-width: 1200px;
+            margin: 25px auto; /* Center the places section */
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .card-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 cards per row */
+    gap: 20px; /* Space between cards */
+}
+
+.card {
+    perspective: 1000px; /* Add perspective for 3D effect */
+    height: 300px;
+
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 300px; /* Set a fixed height */
+    transition: transform 0.6s;
+    transform-style: preserve-3d; /* Ensure children are in 3D space */
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden; /* Hide the back side when not flipped */
+    border-radius: 5px; /* Optional: Rounding */
+    overflow: hidden; /* Hide overflow */
+}
+
+.card-front {
+    z-index: 2; /* Ensure front is above */
+    background-color: #fff; /* Background color */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.card-back {
+    transform: rotateY(180deg); /* Position back side */
+    background:#3e362e; /* Dark background */
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.card:hover .card-inner {
+    transform: rotateY(180deg); /* Flip the card on hover */
+}
+
+.card img {
+    width: 250px;
+    height: 200px;
+    border-radius: 5px; /* Optional: Rounding for images */
+    object-fit: cover
+}
+
+.card-title {
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: bold;
+}
+.hidden {
+    display: none;
+}
+#weather.hidden {
+    display: none;
+}
+#weather {
+    position: absolute; /* Change from fixed */
+    top: 50px; /* Adjust to appear below the weather icon */
+    right: 20px; /* Align near the icon */
+    background: white;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+    z-index: 1000;
+}
+@media (max-width: 768px) {
+    .card-container {
+        grid-template-columns: repeat(2, 1fr); /* 2 cards per row on smaller screens */
+    }
+    .card {
+        height: 250px; /* Adjust for smaller screens */
+    }
+
+    .card-inner {
+        height: 250px;
+    }
+
+    .card img {
+        width: 200px;
+        height: 200px;
+    }
+}
+@media (max-width: 480px) {
+    .card-container {
+        grid-template-columns: 1fr; /* 1 card per row on mobile */
+    }
+    .card {
+        height: 220px; /* Further adjustment for mobile screens */
+    }
+
+    .card-inner {
+        height: 220px;
+    }
+
+    .card img {
+        width: 180px;
+        height: 180px;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="hotelsvaranasi.html">Hotels</a>
+        <a href="https://www.google.com/maps/place/Varanasi,+Uttar+Pradesh" target="_blank" style="margin-left: auto; color: white; text-decoration: none;">
+         <img src="icons8-location-48.png">
+    </a>
+    <a href="javascript:void(0);" id="weather-icon" onclick="toggleWeather()" style="color: white; text-decoration: none; margin-left: 10px;">
+    <img src="Weather-icon.png" alt="Weather" style="width: 30px; height: 30px;">
+    </a>
+        </nav>   
+        <div id="weather" class="hidden">
+            <p id="description">Weather: --</p>
+            <p id="temperature">Temperature: --</p>
+            <p id="humidity">Humidity: --</p>
+        </div>     
+    <div class="content">
+        <h1>History of Varanasi</h1>
+        <h2 style="color:black;">Mythology</h2>
+        <p>According to Hindu mythology, Varanasi was founded by Shiva, one of three principal deities along with Brahma and Vishnu. During a conflict between Brahma and Shiva, one of Brahma's five heads was torn off by Shiva. As was the custom, the victor carried the slain adversary's head in his hand and let it hang down from his hand as an act of ignominy, and a sign of his own bravery. A bridle was also put into the mouth. Shiva thus dishonoured Brahma's head, and kept it with him at all times. When he came to the city of Varanasi in this state, the hanging head of Brahma dropped from Shiva's hand and disappeared in the ground. Varanasi is therefore considered an extremely holy site.</p>
+        <div id="extraText" class="hidden">
+            <p>The Pandavas, the protagonists of the Hindu epic Mahabharata, are said to have visited the city in search of Shiva to atone for their sins of fratricide and brahmahatya that they had committed during the Kurukshetra War. It is regarded as one of seven holy cities (Sapta Puri) which can provide Moksha; Ayodhya, Mathura, Haridwar, Kashi, Kanchipuram, Avanti, and Dvārakā are the seven cities known as the givers of liberation. The princesses Ambika and Ambalika of Kashi were wed to the Hastinapur ruler Vichitravirya, and they later gave birth to Pandu and Dhritarashtra. Bhima, a son of Pandu, married a Kashi princess Valandhara and their union resulted in the birth of Sarvaga, who later ruled Kashi. Dhritarasthra's eldest son Duryodhana also married a Kashi princess Bhanumati, who later bore him a son Lakshmana Kumara and a daughter Lakṣmaṇā. The Cakkavatti Sīhanāda Sutta text of Buddhism puts forth an idea stating that Varanasi will one day become the fabled kingdom of Ketumati in the time of Maitreya.</p>
+        </div>
+        <span id="readMoreBtn" class="read-more" onclick="toggleReadMore()">Read More</span>
+    </div>
+    <div class="places">
+        <h2 style="color:black;">Places to Visit in Varanasi</h2>
+    
+
+    <div class="card-container">
+        <!-- Card 1 -->
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <img src="Kashi_Vishwanath.jpg" alt="Shri Kashi Vishwanath">
+                    <div class="card-title">Shri Kashi Vishwanath</div>
+                </div>
+                <div class="card-back">
+                    <div>Shri Kashi Vishwanath is the jyotirlinga of Shiva Vishveshwara, or Vishvanath. A visit to the temple and a bath in the Ganges is one of many methods believed to lead one on a path to moksha (liberation).The current temple structure was rebuilt in the 18th century by Queen Ahilyabai Holkar. Mahashivaratri and Navratri are important festivals celebrated at this temple. The best time to visit Kashi Vishwanath Temple in Varanasi is from November to February.
+                        <br><br>
+                        <!-- Location Link -->
+                        <a href="https://maps.app.goo.gl/bwy2ycqqKpUSpyrj9" target="_blank" style="color: yellow; text-decoration: underline;">
+                            View Location
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <img src="darbhanga-ghat-varanasi-.jpg" alt="Darbhanga Ghat">
+                    <div class="card-title">Darbhanga Ghat</div>
+                </div>
+                <div class="card-back">
+                    <div>Darbhanga Ghat is a imposing palace with its towers and turrets was built in the early 1900 by the royal family of Bihar. One of the highlights of this palace is the very early lift that was operated by hand. Darbhanga Ghat gives royal look to Ghats of river Ganga
+                        <br><br>
+                        <!-- Location Link -->
+                        <a href="https://maps.app.goo.gl/wnMprt7fh93QyFJH9" target="_blank" style="color: yellow; text-decoration: underline;">
+                            View Location
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <img src="Manikarnika-ghat.jpg" alt="Manikarnika ghat">
+                    <div class="card-title">Manikarnika ghat</div>
+                </div>
+                <div class="card-back">
+                    <div>This ghat is famous for the bodies cremation and burning. According to Hindu mythology, Manikarnika Ghat is believed to be the place where the either the earring or eye of Sati fell down when Lord Shiva was carrying her to the Himalaya In Hinduism, death is considered a gateway to another life marked by the result of one's karma. It is believed that a human's soul attains moksha, and hence breaks the cycle of rebirth when cremated here.
+                        <br><br>
+                        <!-- Location Link -->
+                        <a href="https://maps.app.goo.gl/ccSKprChpiNGyDe67" target="_blank" style="color: yellow; text-decoration: underline;">
+                            View Location
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <img src="durga-temple.jpg" alt="The Shri Durga Kund Temple">
+                    <div class="card-title">The Shri Durga Kund Temple</div>
+                </div>
+                <div class="card-back">
+                    <div>The Shri Durga Kund Temple, also known simply as Durga Temple,It is dedicated to Goddess Durga, who is revered as a symbol of divine power and protection in Hinduism. This temple is one of the important religious and tourist attractions in Varanasi due to its unique architecture and historical significance.
+                        <br><br>
+                        <!-- Location Link -->
+                        <a href="https://maps.app.goo.gl/Ldi4xgc77SFpAiDG7" target="_blank" style="color: yellow; text-decoration: underline;">
+                            View Location
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <img src="panchganga-ghat.jpg" alt="panchganga ghat">
+                    <div class="card-title">panchganga ghat</div>
+                </div>
+                <div class="card-back">
+                    <div>A ghat where five rivers are said to converge, offering a unique spiritual experience.It is believed that Ganga is invisibly the confluence of four other rivers- Yamuna, Saraswati, Kirna and Dhootpapa, hence this place is named 'Panchganga'.Panch Ganga ghat is one of the 5 oldest and most important ghats in Varanasi and is believed to have been built by the sage Bhrigu during the time of the Mahabharat. Pilgrims visit this ghat to take a dip in the holy waters of the Ganga and offer prayers to the gods. It is believed that bathing in the waters of the Panch Ganga Ghat can wash away one’s sins and help attain salvation.
+                        <br><br>
+                        <!-- Location Link -->
+                        <a href="https://maps.app.goo.gl/8s6kGVB7iBwnWWdu7" target="_blank" style="color: yellow; text-decoration: underline;">
+                            View Location
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <img src="shivala-ghat.jpg" alt="Shivala Ghat">
+                    <div class="card-title">Shivala Ghat</div>
+                </div>
+                <div class="card-back">
+                    <div>Shivala ghat is one of the largest ghats in Varanasi, India.Shivala Ghat is quite famous religiously and historically too. There are a number of historic monuments around the Ghat. The mansion of the King of Nepal, King Sanjay Vikram is situated right next to the Ghat, also the Chet Singh Fortress.The view of the river from the Ghat is worth a visit.
+                        <br><br>
+                        <!-- Location Link -->
+                        <a href="https://maps.app.goo.gl/JrSVkBfzrafL5ZLa8" target="_blank" style="color: yellow; text-decoration: underline;">
+                            View Location
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 7 -->
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <img src="kaal bhairav.jpeg" alt="Kaal Bhairav Temple">
+                    <div class="card-title">Kaal Bhairav Temple</div>
+                </div>
+                <div class="card-back">
+                    <div>Lord Kaal Bhairav is believed to be the guardian deity of Varanasi. He is considered the Kotwal (chief of police) of the city, responsible for maintaining order and protecting the sacred city. Devotees visit the temple to seek Lord Kaal Bhairav’s protection from negative forces, evil influences, and adversities.Bhairava, or Kala Bhairava, is a Shaivite and Vajrayāna deity worshipped by Hindus and Buddhists. In Shaivism, he is a powerful manifestation, or avatar, of Shiva.
+                        <br><br>
+                        <!-- Location Link -->
+                        <a href="https://maps.app.goo.gl/XYcbsZyCK8jM4w1V8" target="_blank" style="color: yellow; text-decoration: underline;">
+                            View Location
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 8 -->
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <img src="hanuman-temple.jpg" alt="Sankat Mochan Hanuman temple,varanasi">
+                    <div class="card-title">Sankat Mochan Hanuman temple,varanasi</div>
+                </div>
+                <div class="card-back">
+                    <div>Sankat Mochan Hanuman temple is a Hindu temple in Varanasi, Uttar Pradesh, A temple dedicated to Lord Hanuman, known for its religious significance and beautiful architecture.India and is dedicated to the Hindu God Hanuman, in his form as "Sankat Mochan," meaning the "reliever from troubles".The temple was established by famous Hindu preacher and poet saint Sri Goswami Tulsidas in the early 16th century and is situated on the banks of the Assi river
+                        <br><br>
+                        <!-- Location Link -->
+                        <a href="https://maps.app.goo.gl/8Df22c8oo46e6B5f6" target="_blank" style="color: yellow; text-decoration: underline;">
+                            View Location
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 9 -->
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <img src="dashashwamedh-ghat.jpg" alt="Dashashwamedh Ghat">
+                    <div class="card-title">Dashashwamedh Ghat</div>
+                </div>
+                <div class="card-back">
+                    <div>Dashashwamedh Ghat is a place of worship and a popular attraction in Varanasi. The daily Ganga Aarti ritual is held here, making it a must-visit destination for travellers. Experience the beauty of the ghat by taking a boat ride, observing traditional rituals, or capturing.
+                        <br><br>
+                        <!-- Location Link -->
+                        <a href="https://maps.app.goo.gl/t159ZN8ywjuoSQ5J9" target="_blank" style="color: yellow; text-decoration: underline;">
+                            View Location
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 10 -->
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <img src="assi-ghat.jpg" alt="Assi Ghat">
+                    <div class="card-title">Assi Ghat</div>
+                </div>
+                <div class="card-back">
+                    <div>Shri Kashi Vishwanath is the jyotirlinga of Shiva Vishveshwara, or Vishvanath. A visit to the temple and a bath in the Ganges is one of many methods believed to lead one on a path to moksha (liberation).Assi Ghat is the southernmost ghat in Varanasi.To most visitors to Varanasi, it is known for being a place where long-term foreign students, researchers, and tourists live.The ghat hosts Subah-e-Banaras, a cultural and spiritual event, in the mornings
+                        <br><br>
+                        <!-- Location Link -->
+                        <a href="https://maps.app.goo.gl/UFuCPoaTrXbA7pdo9" target="_blank" style="color: yellow; text-decoration: underline;">
+                            View Location
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 11 -->
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <img src="shri-satyanarayan-tulsi-manas-mandir.jpg" alt="Shri Satyanarayan Tulsi Manas Mandir">
+                    <div class="card-title">Shri Satyanarayan Tulsi Manas Mandir</div>
+                </div>
+                <div class="card-back">
+                    <div>Shri Satyanarayan Tulsi Manas Mandir, located in the city of Varanasi, is a renowned Hindu temple dedicated to Lord Satyanarayan. This magnificent temple holds great significance among devotees and attracts thousands of visitors from all over the world.Visiting this temple is not just a religious experience but also a cultural one, providing insight into the city's rich history and traditions.
+                        <br><br>
+                        <!-- Location Link -->
+                        <a href="https://maps.app.goo.gl/p7C5mCMkFcPWgNsu7" target="_blank" style="color: yellow; text-decoration: underline;">
+                            View Location
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <img src="tulsi-ghat.jpg" alt="Tulsi Ghat">
+                    <div class="card-title">Tulsi Ghat</div>
+                </div>
+                <div class="card-back">
+                    <div>Tulsi Ghat is one of the ghats in Varanasi. It is named after poet Tulsidas who lived there while he wrote the Ramcharitmanas and Hanuman Chalisa. Earlier, Tulsi Ghat was known as Lolark Ghat. It was in the year 1941 that Tulsi Ghat was made pucca (cemented) by industrialist, Baldeo Das Birla.
+                        <br><br>
+                        <!-- Location Link -->
+                        <a href="https://maps.app.goo.gl/NE4djkoZicnjgXwp8" target="_blank" style="color: yellow; text-decoration: underline;">
+                            View Location
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Card 12 -->
+        <div class="card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <img src="ramnagar.jpeg" alt="Ramnagar Fort Varanasi">
+                    <div class="card-title">Ramnagar Fort Varanasi</div>
+                </div>
+                <div class="card-back">
+                    <div>The fort is built in red sandstone and has a temple and a museum within the grounds and the temple is dedicated to Ved Vyasa, who wrote Mahabharata, the great Indian epic. The Ramnagar fort museum displays a Royal collection which includes vintage Cars, palanquins, swords and old guns, ivory work and antique clocks.
+                        <br><br>
+                        <!-- Location Link -->
+                        <a href="https://maps.app.goo.gl/w5Yx3mQcP2dizDQQ9" target="_blank" style="color: yellow; text-decoration: underline;">
+                            View Location
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script>
+        function toggleReadMore() {
+            const extraText = document.getElementById('extraText');
+            const readMoreBtn = document.getElementById('readMoreBtn');
+            if (extraText.classList.contains('hidden')) {
+                extraText.classList.remove('hidden');
+                readMoreBtn.textContent = 'Read Less';
+            } else {
+                extraText.classList.add('hidden');
+                readMoreBtn.textContent = 'Read More';
+            }
+        }
+        function toggleWeather() {
+    const weatherContainer = document.getElementById('weather');
+    if (weatherContainer.classList.contains('hidden')) {
+        weatherContainer.classList.remove('hidden');
+        getWeather(); // Fetch weather data when shown
+    } else {
+        weatherContainer.classList.add('hidden');
+    }
+}
+
+function getWeather() {
+    const apiKey = '14c67bc26d0de9b65b08629ef11f3571'; // Replace with your actual API key
+    const city = 'Varanasi';
+    const units = 'metric'; // Celsius
+    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${units}&appid=${apiKey}`;
+
+    fetch(apiUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            const description = data.weather[0].description;
+            const temperature = data.main.temp;
+            const humidity = data.main.humidity;
+
+            document.getElementById('description').textContent = `Weather: ${description}`;
+            document.getElementById('temperature').textContent = `Temperature: ${temperature}°C`;
+            document.getElementById('humidity').textContent = `Humidity: ${humidity}%`;
+        })
+        .catch(error => {
+            console.error('Error fetching weather data:', error);
+            document.getElementById('weather').innerHTML = '<p>Error fetching weather data</p>';
+        });
+}
+
+    </script>
+</body>
+</html>

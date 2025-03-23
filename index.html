@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Holy Places Tourism of India</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Holy Places Tourism of India</h1>
+    </header>
+
+    <section id="hero">
+        <h2>Explore the Sacred Sites of India</h2>
+        <p>Discover the beauty and spirituality of India's holy places.</p>
+        <a href="login.php" class="cta-button" id="discover-button">Discover More</a>
+    </section>
+
+    <section id="about">
+        <h3>About Us</h3>
+        <p>We are dedicated to showcasing the holy places of India, offering you an unforgettable journey through history, culture, and spirituality.</p>
+    </section>
+
+    <section id="destinations">
+        <h3 style="text-align: center;">Famous Holy Places of India</h3>
+        <p>India is a land of diverse cultures, languages, and traditions, deeply intertwined with spirituality. The country is home to numerous holy places that attract millions of pilgrims and tourists each year. Here's a famous holy places of India: </p>
+        <span class="read-more" id="read-more">Read More</span>
+        <div class="more-destinations" id="more-destinations">
+            <p>Varanasi, Ayodhya, kedarnath, Tirupati, Shirdi,Madurai, Vaishnodevi, Sabarimala, Ranakpur, Haridwar, Amritsar, Bodh Gaya, Amarnath, Mathura, Rishikesh, Badrinath, Vrindavan, Rameshwaram, Pushkar, Puri</p>
+        </div>
+    </section>
+    <script>
+        document.getElementById('read-more').addEventListener('click', function() {
+            const moreDestinations = document.getElementById('more-destinations');
+            if (moreDestinations.style.display === 'none' || moreDestinations.style.display === '') {
+                moreDestinations.style.display = 'block'; 
+                this.textContent = 'Show Less'; 
+            } else {
+                moreDestinations.style.display = 'none'; 
+                this.textContent = 'Read More'; 
+            }
+        });
+    </script>
+</body>
+</html>

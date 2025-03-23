@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Things to Do in Varanasi</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+nav {
+    background-color: #333;
+    color: white;
+    padding: 15px;
+    text-align: center;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+}
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+}
+
+.card {
+    margin: 10px;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.card img {
+    width: 200px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: transform 0.2s;
+}
+
+.card img:hover {
+    transform: scale(1.05);
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    text-align: center;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+    </style>
+</head>
+<body>
+    <nav>
+        <h1>Things to Do in Varanasi</h1>
+        <ul>
+            <li><a href="#location">Location</a></li>
+            <li><a href="#weather">Weather</a></li>
+        </ul>
+    </nav>
+    
+    <section class="card-container">
+        <div class="card" onclick="showInfo('Ganga Aarti')">
+            <img src="images/ganga_aarti.jpg" alt="Ganga Aarti">
+        </div>
+        <div class="card" onclick="showInfo('Boat Ride')">
+            <img src="images/boat_ride.jpg" alt="Boat Ride">
+        </div>
+        <div class="card" onclick="showInfo('Sarnath')">
+            <img src="images/sarnath.jpg" alt="Sarnath">
+        </div>
+        <div class="card" onclick="showInfo('Kashi Vishwanath Temple')">
+            <img src="images/kashi_temple.jpg" alt="Kashi Vishwanath Temple">
+        </div>
+    </section>
+
+    <div id="info-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="info-title"></h2>
+            <p id="info-description"></p>
+        </div>
+    </div>
+    <script>
+        function showInfo(activity) {
+    let title = document.getElementById('info-title');
+    let description = document.getElementById('info-description');
+    let modal = document.getElementById('info-modal');
+
+    switch (activity) {
+        case 'Ganga Aarti':
+            title.textContent = 'Ganga Aarti';
+            description.textContent = 'Experience the spiritual ritual of Ganga Aarti at Dashashwamedh Ghat.';
+            break;
+        case 'Boat Ride':
+            title.textContent = 'Boat Ride';
+            description.textContent = 'Enjoy a serene boat ride on the Ganges, especially at sunrise or sunset.';
+            break;
+        case 'Sarnath':
+            title.textContent = 'Sarnath';
+            description.textContent = 'Visit the historic site where Buddha delivered his first sermon.';
+            break;
+        case 'Kashi Vishwanath Temple':
+            title.textContent = 'Kashi Vishwanath Temple';
+            description.textContent = 'One of the most sacred temples dedicated to Lord Shiva.';
+            break;
+        default:
+            title.textContent = '';
+            description.textContent = '';
+    }
+
+    modal.style.display = "block";
+}
+
+function closeModal() {
+    document.getElementById('info-modal').style.display = "none";
+}
+
+// Close modal when clicking outside of it
+window.onclick = function(event) {
+    const modal = document.getElementById('info-modal');
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+}
+
+    </script>
+</body>
+</html>
